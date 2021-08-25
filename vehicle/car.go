@@ -29,6 +29,7 @@ func (c *Car) StartEngine() (string, error) {
 		return "", ErrEngineOn
 	}
 
+	c.EngineOn = true
 	return "Engine started!", nil
 }
 
@@ -37,6 +38,7 @@ func (c *Car) StopEngine() (string, error) {
 		return "", ErrEngineOff
 	}
 
+	c.EngineOn = false
 	return "Engine stopped!", nil
 }
 
