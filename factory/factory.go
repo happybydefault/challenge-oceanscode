@@ -57,13 +57,11 @@ func (f *Factory) StartAssemblingProcess(amountOfVehicles int) {
 	}
 }
 
-func (Factory) generateVehicleLots(amountOfVehicles int) []vehicle.Car {
-	var vehicles = []vehicle.Car{}
-	var index = 0
-
-	for {
-		vehicles = append(vehicles, vehicle.Car{
-			Id:            index,
+func (Factory) generateVehicleLots(amount int) []vehicle.Car {
+	vehicles := make([]vehicle.Car, amount)
+	for i := range vehicles {
+		vehicles[i] = vehicle.Car{
+			Id:            i,
 			Chassis:       "NotSet",
 			Tires:         "NotSet",
 			Engine:        "NotSet",
@@ -72,15 +70,8 @@ func (Factory) generateVehicleLots(amountOfVehicles int) []vehicle.Car {
 			Sits:          "NotSet",
 			Windows:       "NotSet",
 			EngineStarted: false,
-		})
-
-		index++
-
-		if index >= amountOfVehicles {
-			break
 		}
 	}
-
 	return vehicles
 }
 
