@@ -1,4 +1,4 @@
-module .main.go
+module github.com/happybydefault/challenge-oceanscode
 
 go 1.16
 

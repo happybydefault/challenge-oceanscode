@@ -3,8 +3,8 @@ package factory
 import (
 	"fmt"
 
-	".main.go/assemblyspot"
-	".main.go/vehicle"
+	"github.com/happybydefault/challenge-oceanscode/assemblyspot"
+	"github.com/happybydefault/challenge-oceanscode/vehicle"
 )
 
 const assemblySpots int = 5
@@ -33,8 +33,8 @@ func New() *Factory {
 	return factory
 }
 
-//HINT: this function is currently not returning anything, make it return right away every single vehicle once assembled,
-//(Do not wait for all of them to be assembled to return them all, send each one ready over to main)
+// HINT: this function is currently not returning anything, make it return right away every single vehicle once assembled,
+// (Do not wait for all of them to be assembled to return them all, send each one ready over to main)
 func (f *Factory) StartAssemblingProcess(amountOfVehicles int) {
 	vehicleList := f.generateVehicleLots(amountOfVehicles)
 

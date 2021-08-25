@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	".main.go/vehicle"
+	"github.com/happybydefault/challenge-oceanscode/vehicle"
 )
 
 type AssemblySpot struct {
@@ -25,7 +25,7 @@ func (s *AssemblySpot) GetAssembledLogs() string {
 	return s.assemblyLog
 }
 
-//hint: improve this function to execute this process concurrenlty
+// hint: improve this function to execute this process concurrenlty
 func (s *AssemblySpot) AssembleVehicle() (*vehicle.Car, error) {
 	if s.vehicleToAssemble == nil {
 		return nil, errors.New("no vehicle set to start assembling")
