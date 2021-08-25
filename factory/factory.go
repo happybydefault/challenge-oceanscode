@@ -18,16 +18,8 @@ func New() *Factory {
 		AssemblingSpots: make(chan *assemblyspot.AssemblySpot, assemblySpots),
 	}
 
-	totalAssemblySpots := 0
-
-	for {
+	for i := 0; i < assemblySpots; i++ {
 		factory.AssemblingSpots <- &assemblyspot.AssemblySpot{}
-
-		totalAssemblySpots++
-
-		if totalAssemblySpots >= assemblySpots {
-			break
-		}
 	}
 
 	return factory
@@ -43,14 +35,14 @@ func (f *Factory) StartAssemblingProcess(amountOfVehicles int) {
 
 		idleSpot := <-f.AssemblingSpots
 		idleSpot.SetVehicle(&vehicle)
-		vehicle, err := idleSpot.AssembleVehicle()
+		vehicle, err := idleSpot.Assemble()
 
 		if err != nil {
 			continue
 		}
 
 		vehicle.TestingLog = f.testCar(vehicle)
-		vehicle.AssembleLog = idleSpot.GetAssembledLogs()
+		vehicle.AssembleLog = idleSpot.Log()
 
 		idleSpot.SetVehicle(nil)
 		f.AssemblingSpots <- idleSpot

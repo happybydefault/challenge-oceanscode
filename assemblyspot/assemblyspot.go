@@ -8,26 +8,31 @@ import (
 	"github.com/happybydefault/challenge-oceanscode/vehicle"
 )
 
+const (
+	Assembled  = "Assembled"
+	timeLayout = "2006-01-02 15:04:05.000"
+)
+
 type AssemblySpot struct {
-	vehicleToAssemble *vehicle.Car
-	assemblyLog       string
+	vehicle *vehicle.Car
+	log     string
 }
 
 func (s *AssemblySpot) SetVehicle(v *vehicle.Car) {
-	s.vehicleToAssemble = v
+	s.vehicle = v
 }
 
-func (s *AssemblySpot) GetAssembledVehicle() *vehicle.Car {
-	return s.vehicleToAssemble
+func (s *AssemblySpot) Vehicle() *vehicle.Car {
+	return s.vehicle
 }
 
-func (s *AssemblySpot) GetAssembledLogs() string {
-	return s.assemblyLog
+func (s *AssemblySpot) Log() string {
+	return s.log
 }
 
 // hint: improve this function to execute this process concurrenlty
-func (s *AssemblySpot) AssembleVehicle() (*vehicle.Car, error) {
-	if s.vehicleToAssemble == nil {
+func (s *AssemblySpot) Assemble() (*vehicle.Car, error) {
+	if s.vehicle == nil {
 		return nil, errors.New("no vehicle set to start assembling")
 	}
 
@@ -39,47 +44,47 @@ func (s *AssemblySpot) AssembleVehicle() (*vehicle.Car, error) {
 	s.assembleSeats()
 	s.assembleWindows()
 
-	return s.vehicleToAssemble, nil
+	return s.vehicle, nil
 }
 
 func (s *AssemblySpot) assembleChassis() {
-	s.vehicleToAssemble.Chassis = "Assembled"
+	s.vehicle.Chassis = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Chassis at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Chassis at [%s], ", time.Now().Format(timeLayout))
 }
 
 func (s *AssemblySpot) assembleTires() {
-	s.vehicleToAssemble.Tires = "Assembled"
+	s.vehicle.Tires = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Tires at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Tires at [%s], ", time.Now().Format(timeLayout))
 }
 
 func (s *AssemblySpot) assembleEngine() {
-	s.vehicleToAssemble.Engine = "Assembled"
+	s.vehicle.Engine = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Engine at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Engine at [%s], ", time.Now().Format(timeLayout))
 }
 
 func (s *AssemblySpot) assembleElectronics() {
-	s.vehicleToAssemble.Electronics = "Assembled"
+	s.vehicle.Electronics = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Electronics at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Electronics at [%s], ", time.Now().Format(timeLayout))
 }
 
 func (s *AssemblySpot) assembleDash() {
-	s.vehicleToAssemble.Dash = "Assembled"
+	s.vehicle.Dash = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Dash at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Dash at [%s], ", time.Now().Format(timeLayout))
 }
 
 func (s *AssemblySpot) assembleSeats() {
-	s.vehicleToAssemble.Sits = "Assembled"
+	s.vehicle.Sits = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Sits at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Sits at [%s], ", time.Now().Format(timeLayout))
 }
 
 func (s *AssemblySpot) assembleWindows() {
-	s.vehicleToAssemble.Windows = "Assembled"
+	s.vehicle.Windows = Assembled
 	time.Sleep(1 * time.Second)
-	s.assemblyLog += fmt.Sprintf("Windows at [%s], ", time.Now().Format("2006-01-02 15:04:05.000"))
+	s.log += fmt.Sprintf("Windows at [%s], ", time.Now().Format(timeLayout))
 }
