@@ -1,65 +1,73 @@
 package vehicle
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrEngineOff = errors.New("engine is off")
+	ErrEngineOn  = errors.New("engine is on")
+)
 
 type Car struct {
-	Id            int
-	Chassis       string
-	Tires         string
-	Engine        string
-	Electronics   string
-	Dash          string
-	Sits          string
-	Windows       string
-	EngineStarted bool
-	TestingLog    string
-	AssembleLog   string
+	Id          int
+	Chassis     string
+	Tires       string
+	Engine      string
+	Electronics string
+	Dash        string
+	Sits        string
+	Windows     string
+	EngineOn    bool
+	TestingLog  string
+	AssembleLog string
 }
 
 func (c *Car) StartEngine() (string, error) {
-	if c.EngineStarted {
-		return "", fmt.Errorf("Cannot start engine already started")
+	if c.EngineOn {
+		return "", ErrEngineOn
 	}
 
-	return "Engine Started!", nil
+	return "Engine started!", nil
 }
 
 func (c *Car) StopEngine() (string, error) {
-	if !c.EngineStarted {
-		return "", fmt.Errorf("Cannot stop engine already stopped")
+	if !c.EngineOn {
+		return "", ErrEngineOff
 	}
 
-	return "Engine Stopped!", nil
+	return "Engine stopped!", nil
 }
 
-func (c *Car) MoveForwards(distance int) (string, error) {
-	if !c.EngineStarted {
-		return "", fmt.Errorf("Cannot move with stopped engine")
+func (c *Car) MoveForwards(meters int) (string, error) {
+	if !c.EngineOn {
+		return "", ErrEngineOff
 	}
 
-	return fmt.Sprintf("Moved forward %d meters!", distance), nil
+	return fmt.Sprintf("Moved forward %d meters!", meters), nil
 }
 
-func (c *Car) MoveBackwards(distance int) (string, error) {
-	if !c.EngineStarted {
-		return "", fmt.Errorf("Cannot move with stopped engine")
+func (c *Car) MoveBackwards(meters int) (string, error) {
+	if !c.EngineOn {
+		return "", ErrEngineOff
 	}
 
-	return fmt.Sprintf("Moved backwards %d meters!", distance), nil
+	return fmt.Sprintf("Moved backwards %d meters!", meters), nil
 }
 
 func (c *Car) TurnRight() (string, error) {
-	if !c.EngineStarted {
-		return "", fmt.Errorf("Cannot turn right with stopped engine")
+	if !c.EngineOn {
+		return "", ErrEngineOff
 	}
 
-	return fmt.Sprintf("Turned Right!"), nil
+	return "Turned right!", nil
 }
 
 func (c *Car) TurnLeft() (string, error) {
-	if !c.EngineStarted {
-		return "", fmt.Errorf("Cannot turn left with stopped engine")
+	if !c.EngineOn {
+		return "", ErrEngineOff
 	}
 
-	return fmt.Sprintf("Turned Right"), nil
+	return "Turned left!", nil
 }

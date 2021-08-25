@@ -61,15 +61,15 @@ func (Factory) generateVehicleLots(amount int) []vehicle.Car {
 	vehicles := make([]vehicle.Car, amount)
 	for i := range vehicles {
 		vehicles[i] = vehicle.Car{
-			Id:            i,
-			Chassis:       "NotSet",
-			Tires:         "NotSet",
-			Engine:        "NotSet",
-			Electronics:   "NotSet",
-			Dash:          "NotSet",
-			Sits:          "NotSet",
-			Windows:       "NotSet",
-			EngineStarted: false,
+			Id:          i,
+			Chassis:     "NotSet",
+			Tires:       "NotSet",
+			Engine:      "NotSet",
+			Electronics: "NotSet",
+			Dash:        "NotSet",
+			Sits:        "NotSet",
+			Windows:     "NotSet",
+			EngineOn:    false,
 		}
 	}
 	return vehicles
