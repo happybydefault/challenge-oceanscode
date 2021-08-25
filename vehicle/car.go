@@ -1,13 +1,7 @@
 package vehicle
 
 import (
-	"errors"
 	"fmt"
-)
-
-var (
-	ErrEngineOff = errors.New("engine is off")
-	ErrEngineOn  = errors.New("engine is on")
 )
 
 type Car struct {
