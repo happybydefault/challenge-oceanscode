@@ -20,8 +20,8 @@ func TestFactoryUnitTestSuite(t *testing.T) {
 	suite.Run(t, &factoryUnitTestSuite{})
 }
 
-func (s *factoryUnitTestSuite) TestSamble() {
-	//code here
+func (s *factoryUnitTestSuite) TestSample() {
+	// code here
 	// Assert
 	s.Assert().Equal(1, 1)
 }

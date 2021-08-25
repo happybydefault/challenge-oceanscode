@@ -8,8 +8,8 @@ total assemble time could take up to 7s. if you run this app now you will see a 
 seconds a new car is assembled, we should assemble 5 cars every 7 seconds instead.
 
 Tasks:
-This application is syncronous, make it work CONCURRENTLY! You can use goroutines, channels/buffered channels, waitgroups, mutexes, etc at your 
-discression.
+This application is synchronous, make it work CONCURRENTLY! You can use goroutines, channels/buffered channels, waitgroups, mutexes, etc at your 
+discretion.
 This project has several go files, you should focus on these 3 functions:
 1. assemblyspot.AssembleVehicle
 2. factory.StartAssemblingProcess
