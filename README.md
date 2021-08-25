@@ -1,6 +1,6 @@
 # oceanscode-challenge
 
-This is an Oceans Code Experts challenge.
+This is an [Oceans Code Experts](https://www.oceanscode.com/) challenge.
 
 ## Installation
 
