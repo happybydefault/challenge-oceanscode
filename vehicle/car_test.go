@@ -61,7 +61,7 @@ func TestCar_MoveForwards(t *testing.T) {
 
 		wanted := "Moved forward 17 meters!"
 		if got != wanted {
-			t.Fatalf("wanted %v, got %v", wanted, got)
+			t.Fatalf("wanted %q, got %q", wanted, got)
 		}
 	})
 
@@ -88,7 +88,7 @@ func TestCar_MoveBackwards(t *testing.T) {
 
 		wanted := "Moved backwards 59 meters!"
 		if got != wanted {
-			t.Fatalf("wanted %v, got %v", wanted, got)
+			t.Fatalf("wanted %q, got %q", wanted, got)
 		}
 	})
 
@@ -115,7 +115,7 @@ func TestCar_TurnRight(t *testing.T) {
 
 		wanted := "Turned right!"
 		if got != wanted {
-			t.Fatalf("wanted %v, got %v", wanted, got)
+			t.Fatalf("wanted %q, got %q", wanted, got)
 		}
 	})
 
@@ -142,7 +142,7 @@ func TestCar_TurnLeft(t *testing.T) {
 
 		wanted := "Turned left!"
 		if got != wanted {
-			t.Fatalf("wanted %v, got %v", wanted, got)
+			t.Fatalf("wanted %q, got %q", wanted, got)
 		}
 	})
 

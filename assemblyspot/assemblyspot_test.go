@@ -20,37 +20,37 @@ func TestAssemblySpot_Assemble(t *testing.T) {
 
 	got := assembled.Chassis
 	if got != wanted {
-		t.Fatalf("wanted chassis %v, got %v", wanted, got)
+		t.Fatalf("wanted chassis %q, got %q", wanted, got)
 	}
 
 	got = assembled.Tires
 	if got != wanted {
-		t.Fatalf("wanted tires %v, got %v", wanted, got)
+		t.Fatalf("wanted tires %q, got %q", wanted, got)
 	}
 
 	got = assembled.Engine
 	if got != wanted {
-		t.Fatalf("wanted engine %v, got %v", wanted, got)
+		t.Fatalf("wanted engine %q, got %q", wanted, got)
 	}
 
 	got = assembled.Electronics
 	if got != wanted {
-		t.Fatalf("wanted electronics %v, got %v", wanted, got)
+		t.Fatalf("wanted electronics %q, got %q", wanted, got)
 	}
 
 	got = assembled.Dash
 	if got != wanted {
-		t.Fatalf("wanted dash %v, got %v", wanted, got)
+		t.Fatalf("wanted dash %q, got %q", wanted, got)
 	}
 
 	got = assembled.Sits
 	if got != wanted {
-		t.Fatalf("wanted sits %v, got %v", wanted, got)
+		t.Fatalf("wanted sits %q, got %q", wanted, got)
 	}
 
 	got = assembled.Windows
 	if got != wanted {
-		t.Fatalf("wanted windows %v, got %v", wanted, got)
+		t.Fatalf("wanted windows %q, got %q", wanted, got)
 	}
 }
 
