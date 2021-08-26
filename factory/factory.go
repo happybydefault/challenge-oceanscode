@@ -1,7 +1,8 @@
 package factory
 
 import (
-	"fmt"
+	"log"
+	"sync"
 
 	"github.com/happybydefault/challenge-oceanscode/assemblyspot"
 	"github.com/happybydefault/challenge-oceanscode/vehicle"
@@ -37,27 +38,35 @@ func (f *Factory) StartAssemblingProcess(amountOfVehicles int) <-chan *vehicle.C
 		defer close(ch)
 
 		vehicles := f.generateVehicleLots(amountOfVehicles)
+
+		var wg sync.WaitGroup
+		defer wg.Wait()
+		wg.Add(len(vehicles))
+
 		for _, v := range vehicles {
-			fmt.Println("Assembling vehicle...")
+			v := v
 
 			idleSpot := <-f.AssemblingSpots
-			idleSpot.SetVehicle(&v)
 
-			assembled, err := idleSpot.Assemble()
+			go func() {
+				defer wg.Done()
 
-			if err != nil {
-				continue
-			}
+				idleSpot.SetVehicle(&v)
 
-			assembled.TestingLog = f.testCar(assembled)
-			assembled.AssembleLog = idleSpot.Log()
+				assembled, err := idleSpot.Assemble()
+				if err != nil {
+					log.Println("could not assemble:", err)
+					return
+				}
 
-			vehicle := &vehicle.Car{}
-			*vehicle = *assembled
-			ch <- vehicle
+				assembled.TestingLog = f.testCar(assembled)
+				assembled.AssembleLog = idleSpot.Log()
 
-			idleSpot.SetVehicle(nil)
-			f.AssemblingSpots <- idleSpot
+				ch <- assembled
+
+				idleSpot.SetVehicle(nil)
+				f.AssemblingSpots <- idleSpot
+			}()
 		}
 	}()
 	return ch
