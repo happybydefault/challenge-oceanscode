@@ -27,26 +27,40 @@ func New() *Factory {
 
 // HINT: this function is currently not returning anything, make it return right away every single vehicle once assembled,
 // (Do not wait for all of them to be assembled to return them all, send each one ready over to main)
-func (f *Factory) StartAssemblingProcess(amountOfVehicles int) {
-	vehicleList := f.generateVehicleLots(amountOfVehicles)
-
-	for _, vehicle := range vehicleList {
-		fmt.Println("Assembling vehicle...")
-
-		idleSpot := <-f.AssemblingSpots
-		idleSpot.SetVehicle(&vehicle)
-		vehicle, err := idleSpot.Assemble()
-
-		if err != nil {
-			continue
-		}
-
-		vehicle.TestingLog = f.testCar(vehicle)
-		vehicle.AssembleLog = idleSpot.Log()
-
-		idleSpot.SetVehicle(nil)
-		f.AssemblingSpots <- idleSpot
+func (f *Factory) StartAssemblingProcess(amountOfVehicles int) <-chan *vehicle.Car {
+	if amountOfVehicles <= 0 {
+		return nil
 	}
+
+	ch := make(chan *vehicle.Car)
+	go func() {
+		defer close(ch)
+
+		vehicles := f.generateVehicleLots(amountOfVehicles)
+		for _, v := range vehicles {
+			fmt.Println("Assembling vehicle...")
+
+			idleSpot := <-f.AssemblingSpots
+			idleSpot.SetVehicle(&v)
+
+			assembled, err := idleSpot.Assemble()
+
+			if err != nil {
+				continue
+			}
+
+			assembled.TestingLog = f.testCar(assembled)
+			assembled.AssembleLog = idleSpot.Log()
+
+			vehicle := &vehicle.Car{}
+			*vehicle = *assembled
+			ch <- vehicle
+
+			idleSpot.SetVehicle(nil)
+			f.AssemblingSpots <- idleSpot
+		}
+	}()
+	return ch
 }
 
 func (Factory) generateVehicleLots(amount int) []vehicle.Car {
