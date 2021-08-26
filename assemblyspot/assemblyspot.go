@@ -3,6 +3,7 @@ package assemblyspot
 import (
 	"errors"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/happybydefault/challenge-oceanscode/vehicle"
@@ -36,13 +37,50 @@ func (s *AssemblySpot) Assemble() (*vehicle.Car, error) {
 		return nil, errors.New("no vehicle set to start assembling")
 	}
 
-	s.assembleChassis()
-	s.assembleTires()
-	s.assembleEngine()
-	s.assembleElectronics()
-	s.assembleDash()
-	s.assembleSeats()
-	s.assembleWindows()
+	var wg sync.WaitGroup
+	defer wg.Wait()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleChassis()
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleTires()
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleEngine()
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleElectronics()
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleDash()
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleSeats()
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		s.assembleWindows()
+	}()
 
 	return s.vehicle, nil
 }
